@@ -1,4 +1,4 @@
-﻿//定义常量 与后台对应
+//定义常量 与后台对应
 var PROCESS_STATUS_DKSQ = '101' //1.新申请
 var PROCESS_STATUS_DKSQSH = '201' //2分配A、B、运营岗
 var PROCESS_STATUS_DKSQSH_JUJUE = '202' //2申请被拒绝
@@ -639,7 +639,7 @@ function hjje2(obj,value){
 
 //验证1-100数字,错误统计num
 function check(obj,min,max){    
-    if(parseInt(obj.value)<min || parseInt(obj.value)>max){
+    if(parseFloat(obj.value)<min || parseFloat(obj.value)>max){
         if($(obj).parent().find(".errorInfo").css("display")=="none")                
             num++;             
         $(obj).parent().find(".errorInfo").show();//显示改文本框所在span的className为errorInfo的错误信息

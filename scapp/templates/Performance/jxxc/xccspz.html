@@ -34,8 +34,8 @@
 						<th>基本工资</th>
 						<th>A1</th>
 						<th>A2</th>
-						<th>A3</th>
-						<th>R</th>
+						<th>A3(%)</th>
+						<th>R(%)</th>
 						<th>风险系数</th>
 					</tr>					
 					<tbody class="center">
@@ -45,14 +45,26 @@
 							<td><input type="text" name="level_base" value="{{queryInform_1.base_payment}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A1" value="{{queryInform_1.A1}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A2" value="{{queryInform_1.A2}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>			
-							<td><input type="text" name="level_A3" value="{{queryInform_1.A3}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
-							<td><input type="text" name="level_R" value="{{queryInform_1.R}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
+							<td>
+								<input type="text" name="level_A3" value="{{queryInform_1.A3}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>
+							<td>
+								<input type="text" name="level_R" value="{{queryInform_1.R}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>
 							{%- else %}
 							<td><input type="text" name="level_base" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A1" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A2" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>			
-							<td><input type="text" name="level_A3" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
-							<td><input type="text" name="level_R" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
+							<td>
+								<input type="text" name="level_A3" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>
+							<td>
+								<input type="text" name="level_R" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>
 							{%- endif%}	
 							<td rowspan="6">
 								无抵押无担保贷款r1：100%<br/>
@@ -67,14 +79,26 @@
 							<td><input type="text" name="level_base" value="{{queryInform_2.base_payment}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A1" value="{{queryInform_2.A1}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A2" value="{{queryInform_2.A2}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>	
-							<td><input type="text" name="level_A3" value="{{queryInform_2.A3}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
-							<td><input type="text" name="level_R" value="{{queryInform_2.R}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
+							<td>
+								<input type="text" name="level_A3" value="{{queryInform_2.A3}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>
+							<td>
+								<input type="text" name="level_R" value="{{queryInform_2.R}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>								
+							</td>
 							{%- else%}
 							<td><input type="text" name="level_base" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A1" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A2" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>			
-							<td><input type="text" name="level_A3" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
-							<td><input type="text" name="level_R" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
+							<td>
+								<input type="text" name="level_A3" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>
+							<td>
+								<input type="text" name="level_R" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>
 							{%- endif%}
 						</tr>
 						<tr class="tbData" onclick="changeColor(this)">
@@ -83,14 +107,26 @@
 							<td><input type="text" name="level_base" value="{{queryInform_3.base_payment}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A1" value="{{queryInform_3.A1}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A2" value="{{queryInform_3.A2}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>	
-							<td><input type="text" name="level_A3" value="{{queryInform_3.A3}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
-							<td><input type="text" name="level_R" value="{{queryInform_3.R}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>	
+							<td>
+								<input type="text" name="level_A3" value="{{queryInform_3.A3}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>
+							<td>
+								<input type="text" name="level_R" value="{{queryInform_3.R}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>	
 							{%- else%}
 							<td><input type="text" name="level_base" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A1" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A2" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>			
-							<td><input type="text" name="level_A3" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
-							<td><input type="text" name="level_R" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>	
+							<td>
+								<input type="text" name="level_A3" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>
+							<td>
+								<input type="text" name="level_R" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>	
 							{%- endif%}
 						</tr>
 						<tr class="tbData" onclick="changeColor(this)">
@@ -99,14 +135,26 @@
 							<td><input type="text" name="level_base" value="{{queryInform_4.base_payment}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A1" value="{{queryInform_4.A1}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A2" value="{{queryInform_4.A2}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>	
-							<td><input type="text" name="level_A3" value="{{queryInform_4.A3}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
-							<td><input type="text" name="level_R" value="{{queryInform_4.R}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>	
+							<td>
+								<input type="text" name="level_A3" value="{{queryInform_4.A3}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>
+							<td>
+								<input type="text" name="level_R" value="{{queryInform_4.R}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>	
 							{%- else%}
 							<td><input type="text" name="level_base" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A1" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A2" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>			
-							<td><input type="text" name="level_A3" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
-							<td><input type="text" name="level_R" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>	
+							<td>
+								<input type="text" name="level_A3" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>
+							<td>
+								<input type="text" name="level_R" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>	
 							{%- endif%}
 						</tr>
 						<tr class="tbData" onclick="changeColor(this)">
@@ -115,14 +163,26 @@
 							<td><input type="text" name="level_base" value="{{queryInform_5.base_payment}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A1" value="{{queryInform_5.A1}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A2" value="{{queryInform_5.A2}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>	
-							<td><input type="text" name="level_A3" value="{{queryInform_5.A3}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
-							<td><input type="text" name="level_R" value="{{queryInform_5.R}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>	
+							<td>
+								<input type="text" name="level_A3" value="{{queryInform_5.A3}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>
+							<td>
+								<input type="text" name="level_R" value="{{queryInform_5.R}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>	
 							{%- else%}
 							<td><input type="text" name="level_base" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A1" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A2" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>			
-							<td><input type="text" name="level_A3" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
-							<td><input type="text" name="level_R" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>	
+							<td>
+								<input type="text" name="level_A3" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>
+							<td>
+								<input type="text" name="level_R" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/><br/>
+								<span class="errorInfo">请输入0-100之间的数</span>
+							</td>	
 							{%- endif%}	
 						</tr>
 						<tr class="tbData" onclick="changeColor(this)">
@@ -131,14 +191,22 @@
 							<td><input type="text" name="level_base" value="{{queryInform_6.base_payment}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A1" value="{{queryInform_6.A1}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A2" value="{{queryInform_6.A2}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>	
-							<td><input type="text" name="level_A3" value="{{queryInform_6.A3}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
-							<td><input type="text" name="level_R" value="{{queryInform_6.R}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>	
+							<td>
+								<input type="text" name="level_A3" value="{{queryInform_6.A3}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/>
+							</td>
+							<td>
+								<input type="text" name="level_R" value="{{queryInform_6.R}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/>
+							</td>	
 							{%- else%}
 							<td><input type="text" name="level_base" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A1" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
 							<td><input type="text" name="level_A2" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>			
-							<td><input type="text" name="level_A3" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>
-							<td><input type="text" name="level_R" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/></td>	
+							<td>
+								<input type="text" name="level_A3" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/>
+							</td>
+							<td>
+								<input type="text" name="level_R" onKeyUp="value=value.replace(/[^\d\.]/g,'')" onblur="check(this,0,100)"/>
+							</td>	
 							{%- endif%}
 						</tr><!-- /数据 -->	
 					</tbody>									

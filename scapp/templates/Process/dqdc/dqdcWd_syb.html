@@ -9,6 +9,7 @@
 
 	<!-- The styles -->
 	<link href="/static/css/bootstrap.css" rel="stylesheet">
+	<link href="/static/css/datepicker.css" rel="stylesheet">
 	<link href="/static/css/main.css" rel="stylesheet">
 	<style type="text/css">
 		input[type=text]{width:80%;padding:0;}
@@ -23,7 +24,7 @@
 	</script>
 </head>
 
-<body>
+<body onload="$('.datepicker').datepicker()">
 	<form class="content" method="POST" action="/Process/dqdc/dqdcWd_syb/{{loan_apply_id}}" target="_parent">
 		{%- if profit_loss %}
 	<!--*****************************************资产负债表**************************************************-->
@@ -33,18 +34,18 @@
 				<tr class="center">
 					<td class="table-label" style="width:160px;">项目
 						<input type="hidden" name="items_name_0" value="项目"></td>
-					<td style="width:60px;"><input type="text" value="{{profit_loss[0].month_1}}" name="month_1_0"/>年<br/>1月</td>
-					<td style="width:60px;"><input type="text" value="{{profit_loss[0].month_2}}" name="month_2_0"/>年<br/>2月</td>
-					<td style="width:60px;"><input type="text" value="{{profit_loss[0].month_3}}" name="month_3_0"/>年<br/>3月</td>
-					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_4}}" name="month_4_0"/>年<br/>4月</td>	
-					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_5}}" name="month_5_0"/>年<br/>5月</td>
-					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_6}}" name="month_6_0"/>年<br/>6月</td>
-					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_7}}" name="month_7_0"/>年<br/>7月</td>
-					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_8}}" name="month_8_0"/>年<br/>8月</td>
-					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_9}}" name="month_9_0"/>年<br/>9月</td>
-					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_10}}" name="month_10_0"/>年<br/>10月</td>
-					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_11}}" name="month_11_0"/>年<br/>11月</td>
-					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_12}}" name="month_12_0"/>年<br/>12月</td>	
+					<td style="width:60px;"><input type="text" value="{{profit_loss[0].month_1}}" name="month_1_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:60px;"><input type="text" value="{{profit_loss[0].month_2}}" name="month_2_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:60px;"><input type="text" value="{{profit_loss[0].month_3}}" name="month_3_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_4}}" name="month_4_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>	
+					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_5}}" name="month_5_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_6}}" name="month_6_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_7}}" name="month_7_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_8}}" name="month_8_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_9}}" name="month_9_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_10}}" name="month_10_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_11}}" name="month_11_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" value="{{profit_loss[0].month_12}}" name="month_12_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>	
 					<td style="width:61px;">总计
 						<input type="hidden" name="total_0" value="总计"></td>
 					<td>月平均
@@ -1625,18 +1626,18 @@
 				<tr class="center">
 					<td class="table-label" style="width:160px;">项目
 						<input type="hidden" name="items_name_0" value="项目"></td>
-					<td style="width:60px;"><input type="text" name="month_1_0"/>年<br/>1月</td>
-					<td style="width:60px;"><input type="text" name="month_2_0"/>年<br/>2月</td>
-					<td style="width:60px;"><input type="text" name="month_3_0"/>年<br/>3月</td>
-					<td style="width:61px;"><input type="text" name="month_4_0"/>年<br/>4月</td>	
-					<td style="width:61px;"><input type="text" name="month_5_0"/>年<br/>5月</td>
-					<td style="width:61px;"><input type="text" name="month_6_0"/>年<br/>6月</td>
-					<td style="width:61px;"><input type="text" name="month_7_0"/>年<br/>7月</td>
-					<td style="width:61px;"><input type="text" name="month_8_0"/>年<br/>8月</td>
-					<td style="width:61px;"><input type="text" name="month_9_0"/>年<br/>9月</td>
-					<td style="width:61px;"><input type="text" name="month_10_0"/>年<br/>10月</td>
-					<td style="width:61px;"><input type="text" name="month_11_0"/>年<br/>11月</td>
-					<td style="width:61px;"><input type="text" name="month_12_0"/>年<br/>12月</td>	
+					<td style="width:60px;"><input type="text" name="month_1_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:60px;"><input type="text" name="month_2_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:60px;"><input type="text" name="month_3_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" name="month_4_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>	
+					<td style="width:61px;"><input type="text" name="month_5_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" name="month_6_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" name="month_7_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" name="month_8_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" name="month_9_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" name="month_10_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" name="month_11_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>
+					<td style="width:61px;"><input type="text" name="month_12_0" class="datepicker" data-date-format="yyyy.mm" style="width:53px;" readonly/></td>	
 					<td style="width:61px;">总计
 						<input type="hidden" name="total_0" value="总计"></td>
 					<td>月平均
@@ -3146,6 +3147,7 @@
 
 	<script src="/static/js/jquery-1.7.2.min.js"></script>
 	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/bootstrap-datepicker.js"></script>
 	<script src="/static/js/script.js"></script>
 	<script src="/static/js/process.js"></script>
 	<script type="text/javascript">		
