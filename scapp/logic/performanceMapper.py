@@ -31,6 +31,7 @@ class Parameter():
             level_A3_list = request.form.getlist('level_A3')
             level_R_list = request.form.getlist('level_R')
             back_payment = request.form['back_payment']
+            line_payment = request.form['line_payment']
             performance_a = request.form['performance_a']
             performance_b = request.form['performance_b']
             performance_c = request.form['performance_c']
@@ -38,7 +39,7 @@ class Parameter():
             level_b = request.form['level_b']
             for i in range(len(level_base_list)):
                 SC_parameter_configure(i + 1, level_base_list[i], level_A1_list[i], level_A2_list[i],
-                                       level_A3_list[i], level_R_list[i], back_payment,performance_a, performance_b, performance_c,
+                                       level_A3_list[i], level_R_list[i], back_payment,line_payment,performance_a, performance_b, performance_c,
                                        level_a, level_b).add()
             # 事务提交
             db.session.commit()

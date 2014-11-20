@@ -215,7 +215,13 @@
 			<div class="divBorder">
 				<table class="table-list">
 				<td class="table-label">后台岗基本工资</td>
-							<td><input type="text" name="back_payment" value="{{back_payment}}"/>元</td>
+							<td><input type="text" name="back_payment" value="{{back_payment}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/>元</td>
+				</table>
+			</div>
+			<div class="divBorder">
+				<table class="table-list">
+				<td class="table-label">易贷通系数</td>
+							<td><input type="text" name="line_payment" value="{{line_payment}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/>%</td>
 				</table>
 			</div>
 			<i class="icon-bookmark"></i><span class="titletip">绩效评估组分配</span><br/>

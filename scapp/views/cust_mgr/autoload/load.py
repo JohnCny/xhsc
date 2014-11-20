@@ -12,6 +12,13 @@ from scapp.models.performance.sc_parameter_configure import SC_parameter_configu
 from scapp.models import SC_Loan_Apply
 from scapp.models import SC_Approval_Decision
 from scapp.models.performance.sc_loan_income_list import SC_loan_income_list 
+from scapp.tools.convert_bank_data import Interface_bank_data
+import json
+from scapp.logic.cust_mgr.sc_payment import Payment
+from scapp.tools.convert_bank_data import assist
+from scapp.models.loan.sc_bank_loans_main import SC_Bank_Loans_Main
+from scapp.config import WEBSERVICE_URL
+import SOAPpy
 class scriptload():
 	#晋降级线程
 	def rise(self):
@@ -75,7 +82,6 @@ class scriptload():
 			sql += "INNER JOIN sc_user ON sc_user.id = sc_userrole.user_id "
 			sql += "where sc_role.role_level >= 2"
 			users = db.session.execute(sql)
-
 			now = datetime.datetime.now().date().strftime("%Y-%m-%d")
 
 			for obj in users:
@@ -102,7 +108,7 @@ class scriptload():
 			sql="select a.user_id as id from sc_userrole a,sc_role b where a.role_id=b.id and b.role_level=2"
 			data = db.session.execute(sql)
 			for obj in data:
-				loan_sql = "select sum(a.loan_balance) as loanSum from sc_bank_loans_main a,sc_loan_apply b where a.loan_apply_id=b.id and b.A_loan_officer="+str(obj.id)
+				loan_sql = "select sum(a.loan_balance) as loanSum from sc_bank_loans_main a,sc_loan_apply b where a.loan_apply_id=b.id and loan_type = 1  dzZzand b.A_loan_officer="+str(obj.id)
 				dataSum = db.session.execute(loan_sql).fetchall()
 				#上月余额规模
 				for i in dataSum:
@@ -173,7 +179,7 @@ class scriptload():
 						A_total = total*0.6
 						B_total = total*0.3
 						SC_loan_income_list(obj.loan_apply_id,loan_apply.yunying_loan_officer,yunying_total,loan_apply.A_loan_officer,
-							A_total,loan_apply.B_loan_officer,B_total,payment_date).add()
+							A_total,loan_apply.B_loan_officer,B_total,payment_date,1).add()
 		 	 # 事务提交
 			db.session.commit()
 		except:
@@ -198,3 +204,103 @@ class scriptload():
 	        return 4
 	    elif am>3000000:
 	        return 5
+
+
+	#月初更新上月诚易贷放贷状态计算本月绩效
+	def linePayment(self):
+		try:
+			#上月时间
+			lst_fist = datetime.date(datetime.datetime.now().year,datetime.datetime.now().month-1,1)
+			#当月时间
+			to_fist = datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,1)
+			#上月时间
+			last_month = lst_fist.strftime('%Y')+lst_fist.strftime('%m')
+			sql ="select loan_apply_id,loan_total_amount from sc_bank_loans_main where DATE_FORMAT(t.loan_deliver_date, '%Y-%m')="+last_month+"'"
+			data = db.session.execute(sql)
+			for obj in data:
+				#计算绩效日期
+				payment_date = to_fist
+				#折算笔数
+				inCount = self.amount(int(obj.loan_total_amount))
+				#查询层级
+				loan_apply = SC_Loan_Apply.query.filter_by(id=obj.loan_apply_id).first()
+				if loan_apply==1:
+					level = SC_Privilege.query.filter_by(priviliege_master_id=loan_apply.A_loan_officer,privilege_master="SC_User",priviliege_access="sc_account_manager_level").first()
+					#查询所有绩效参数
+					if level:
+						parameter = SC_parameter_configure.query.filter_by(level_id=level.priviliege_access_value).first()
+						#所得绩效
+						if parameter:
+							total = float(parameter.A1)*inCount
+							yunying_total = total*0.1
+							A_total = total*0.6
+							B_total = total*0.3
+							SC_loan_income_list(obj.loan_apply_id,loan_apply.yunying_loan_officer,yunying_total,loan_apply.A_loan_officer,
+								A_total,loan_apply.B_loan_officer,B_total,payment_date,1).add()
+		 	 # 事务提交
+			db.session.commit()
+		except:
+			# 回滚
+			db.session.rollback()
+			logger.exception('exception')
+			
+
+	# 月初更新易贷通模拟利润并计算绩效
+	def yidaitong(self):
+		try:
+			#上一个月的第一天
+			lst_fist = datetime.date(datetime.datetime.now().year,datetime.datetime.now().month-1,1)
+			#上一个月的最后一天
+		 	lst_last = datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,1)-datetime.timedelta(1)
+			#获取所有上月存在利润贷款
+			lst = str(lst_fist) + " 00:00:00"
+			last = str(lst_last) + " 23:59:59"
+			sql = "loan_due_date > '" + lst + "'"
+			sc_bank_loans_main= SC_Bank_Loans_Main.query.filter(sql).all()
+			logger.info("=======模拟利润更新========")
+			for obj in sc_bank_loans_main:
+				sc_loan_apply = SC_Loan_Apply.query.filter_by(id=obj.loan_apply_id).first()
+				logger.info(sc_loan_apply.loan_type)
+				if sc_loan_apply:
+					if sc_loan_apply.loan_type=='2':
+						#接口--模拟利润
+						server = SOAPpy.SOAPProxy(WEBSERVICE_URL) 
+						dd = server.mnlr(obj.loan_account,lst_last.strftime("%Y%m%d"))
+						logger.info("sc_loan_apply:"+str(sc_loan_apply.id))
+						data = json.loads(dd)
+						self.return_examp(obj.loan_apply_id,data[0]["BYMNLR"])
+		except:
+			logger.exception('exception')
+
+	# 回调函数--获取模拟利润
+	def return_examp(self,loan_apply_id,BYMNLR):			
+		try:
+			#参数配置表
+			sc_parameter_configure = SC_parameter_configure.query.first()
+			A_total = float(BYMNLR)*float(sc_parameter_configure.line_payment)/100
+			#获取A岗人
+			loan_apply = SC_Loan_Apply.query.filter_by(id=loan_apply_id).first()
+			#计入下月绩效
+			SC_loan_income_list(loan_apply_id,'','',loan_apply.A_loan_officer,A_total,'','',datetime.datetime.now(),2).add()
+			# 事务提交
+			db.session.commit()
+		except:
+			# 回滚
+			db.session.rollback()
+			logger.exception('exception')
+
+	def paymentMonth(self):
+		#获取所有人员名单
+		sql="select a.id,b.role_level from sc_user a,sc_role b,sc_userrole c where a.id=c.user_id and c.role_id=b.id"
+		data = db.session.execute(sql).fetchall()
+		pay = Payment()
+		#上月
+		lst_fist = datetime.date(datetime.datetime.now().year,datetime.datetime.now().month-1,1)
+		#客户经理工资计算
+		for obj in data:
+			if obj.role_level==2:
+				pay.payroll(obj.id,lst_fist,80)
+		#后台岗工资计算
+		for obj in data:
+			if obj.role_level==3:
+				pay.backPayment(obj.id,lst_fist,80)

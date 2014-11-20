@@ -151,3 +151,17 @@ def update_overdue_rate():
     @return:None
     """
     return DAO_bank_loans.update_overdue_info()
+
+def connector_loan(loan_account):
+    """
+    获取贷款信息
+    @return:None
+    """
+    return DAO_bank_loans.connector_loan(loan_account)
+
+def connector_profit(id,lst_fist,lst_last):
+    """
+    获取模拟利润
+    @return:None
+    """
+    return DAO_bank_loans.connector_profit(id,lst_fist,lst_last)

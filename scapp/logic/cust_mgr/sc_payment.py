@@ -203,22 +203,13 @@ class Payment():
 						SC_risk_margin_list(user_id,date,return_margin,3,margin.total_margin).add()
 				#最终工资计算
 				last_payment = old_total_payment-pay_margin+return_margin-nega_margin
-				SC_payment_list(user_id,date,base_payment,performance_total,score,
+				SC_payment_list(user_id,date,base_payment,performance_result,score,
 	                last_performance_result,float(pay_margin),float(return_margin),M,float(last_payment)).add()
 			db.session.commit()
 		except:
 			# 回滚
 			db.session.rollback()
 			logger.exception('exception')
-
-		# #后台岗工资统计
-		# #查询总客户经理人数
-		# userData = SC_UserRole.query.filter("role_id=3").all()
-		# #查询当月已计算工资人数
-		# sql="DATE_FORMAT(payment_time, '%Y-%m')='"+today+"'"
-		# paymentData = SC_payment_list.query.filter(sql).all()
-		# if len(userData)==len(paymentData):
-		# 	self.backPayment(user_id,date,paymentData)
 
 	#后台岗工资计算
 	def backPayment(self,user_id,date,score):

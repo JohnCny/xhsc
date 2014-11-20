@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #coding=utf-8
 import sys
-
+import thread
 reload(sys)  
 sys.setdefaultencoding('utf8')
 from config import unopath
@@ -48,7 +48,6 @@ app.config.from_object('scapp.config.ProConfig') # mysql
 db = SQLAlchemy(app)
 
 from scapp.tools.loading_work import timing
-time = timing()
 
 # flask-login---start
 from scapp.models import SC_User
@@ -165,6 +164,7 @@ import views.cust_mgr.performance.business_error_list
 import views.cust_mgr.performance.level
 import views.cust_mgr.performance.payment
 import views.cust_mgr.performance.margin
+import views.cust_mgr.performance.line_payment
 #---------------------------------
 #ORM自动生成使用--johnny
 #---------------------------------
@@ -192,3 +192,5 @@ from scapp.models.repayment import sc_repayment_plan_detail #还款计划详细�
 from scapp.models.repayment import sc_penalty_interest #罚息信息
 
 from scapp.models.cust_mgr import sc_day_work #客户经理工时记录
+
+time = timing()

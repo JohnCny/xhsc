@@ -30,7 +30,7 @@ class SC_Bank_Loans_Main(db.Model):
     loan_cleared_pr_n=db.Column(db.Integer)#已还本金期数
     loan_cleared_in_n=db.Column(db.Integer)#已还利息期数
     loan_overdue_amount=db.Column(db.DECIMAL(18,2))#逾期金额
-    loan_overdue_date=db.Column(db.Date)#逾期日期
+    loan_overdue_date=db.Column(db.String(32))#逾期天数
 
 
 
@@ -50,7 +50,5 @@ class SC_Bank_Loans_Main(db.Model):
         self.loan_overdue_amount = loan_overdue_amount
     	self.loan_overdue_date = loan_overdue_date
 
-
-
-	def add(self):
-		db.session.add(self)
+    def add(self):
+        db.session.add(self)

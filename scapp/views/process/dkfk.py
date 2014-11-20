@@ -138,7 +138,7 @@ def edit_dkfk(id):
         # 事务提交
         db.session.commit()
         #计算绩效
-        reckonIncome(id)
+        # reckonIncome(id)
         # 消息闪现
         flash('保存成功','success')
     except:
